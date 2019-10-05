@@ -9,5 +9,5 @@ console.log(db.sync())
 db.sync()
   .then(() => {
     console.log('db synced!')
-    app.listen(PORT => console.log(`SERVER RUNNING ON PORT ${PORT}`))
+    app.listen(PORT, () => console.log(`SERVER RUNNING ON PORT ${PORT}`))
   })
