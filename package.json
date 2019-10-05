@@ -10,7 +10,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -w"
+    "start-dev": "npm run build-watch & npm run start-server",
+    "start-server": "nodemon --watch server main.js -e html,js,css",
+    "build-watch": "webpack -w"
   },
   "repository": {
     "type": "git",
