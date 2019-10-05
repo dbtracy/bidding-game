@@ -1,0 +1,25 @@
+{
+  "name": "bidding-game",
+  "version": "1.0.0",
+  "description": "A web app for keeping score in The Bidding Game",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "webpack-cli": "^3.3.9",
+    "webpack": "^4.41.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbtracy/bidding-game.git"
+  },
+  "author": "dan tracy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dbtracy/bidding-game/issues"
+  },
+  "homepage": "https://github.com/dbtracy/bidding-game#readme"
+}
