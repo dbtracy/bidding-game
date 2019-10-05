@@ -12,8 +12,11 @@ const Player = db.define('players', {
   points: {
     type: Sequelize.INTEGER,
     defaultValue: 0
-
-  }
+  },
+  wins: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
 })
 
 
