@@ -4,8 +4,6 @@ const { db } = require('./server/db')
 const app = require('./server')
 const PORT = 1103
 
-console.log(db.sync())
-
 db.sync()
   .then(() => {
     console.log('db synced!')
