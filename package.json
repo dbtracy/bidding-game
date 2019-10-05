@@ -4,8 +4,10 @@
   "description": "A web app for keeping score in The Bidding Game",
   "main": "webpack.config.js",
   "dependencies": {
-    "webpack-cli": "^3.3.9",
-    "webpack": "^4.41.0"
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
   },
   "devDependencies": {},
   "scripts": {
