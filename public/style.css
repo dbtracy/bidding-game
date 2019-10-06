@@ -1,7 +1,30 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 110%;
+}
+
 body {
-  background-color: #e0d6c8
+  background-color: #acacac
+}
+
+nav {
+  background-color: #acacac
+}
+
+.bg {
+  margin: 0
 }
 
 .main-page-body {
-  background-color: black
+  background-color: #acacac
+}
+
+.title {
+  background-color: #e0d6c8;
+  height: 150px;
+}
+
+.round-info {
+  display: flex;
 }
