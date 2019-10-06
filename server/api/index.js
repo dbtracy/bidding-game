@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-router.use('players', require('./routes/players'))
+router.use('/players', require('./routes/players'))
 
 router.use((req, res, next) => {
   const err = new Error('API not found!')

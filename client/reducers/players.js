@@ -1,18 +1,17 @@
 import axios from 'axios'
 
 const initialState = {
-  players: [],
-  singlePlayer: {}
+  players: []
 }
 
 /**********PLAYERS CREATORS**********/
 
 const GET_PLAYERS = 'GET_PLAYERS'
 
-export const getPlayersActionCreator = players => {
+export const getPlayersActionCreator = players => ({
   type: GET_PLAYERS,
-    players
-}
+  players
+})
 
 export const getPlayersThunkCreator = () => {
   return async dispatch => {

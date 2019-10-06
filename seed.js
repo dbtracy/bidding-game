@@ -7,27 +7,33 @@ const { Player } = require('./server/db/index')
 const seedPlayers = [
   {
     name: 'Jon',
-    points: 0
+    points: 0,
+    wins: 0
   },
   {
     name: 'Joel',
-    points: 0
+    points: 0,
+    wins: 0
   },
   {
     name: 'Grandpa',
-    points: 0
+    points: 0,
+    wins: 0
   },
   {
     name: 'Joy',
-    points: 0
+    points: 0,
+    wins: 0
   },
   {
     name: 'Jane',
-    points: 0
+    points: 0,
+    wins: 0
   },
   {
     name: 'Jim',
-    points: 0
+    points: 0,
+    wins: 0
   }
 ]
 

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const Player = require('../../db/index')
+const { Player } = require('../../db/index')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -31,3 +31,5 @@ router.get('/:id', async (req, res, next) => {
     console.log(error)
   }
 })
+
+module.exports = router
