@@ -39,11 +39,18 @@ class DisconnectedRoot extends Component {
                 <div key={player.id} className="player-and-bids">
                   <p>{player.name}</p>
                   <select name="bids" className="bids">
-                    {tricks.map(trick => {
-                      return (
-                        <option key="`${trick + 0}`" value="`${trick}`">{trick}</option>
-                      )
-                    })}
+                    <option value="">Place bid</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                   </select>
                   <input type="checkbox" className="made-it" name="made-it" />
                 </div>
