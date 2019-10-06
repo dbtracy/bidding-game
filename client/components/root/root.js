@@ -4,7 +4,7 @@ import axios from 'axios'
 import { getPlayersThunkCreator } from '../../reducers/players'
 
 // import playersReducer from '../../reducers/players'
-// import './root.css'
+import './root.css'
 
 class DisconnectedRoot extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class DisconnectedRoot extends Component {
             <p>To bid --></p>
           </div>
           <div className="players">
+            <p>PLAYERS:</p>
             {this.props.players.map(player => {
               return (
                 <p key={player.id}>{player.name}</p>
