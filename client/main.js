@@ -5,7 +5,7 @@ import { BrowserRouter, Link } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import store from './store'
-import Root from './components/root'
+import Root from './components/root/root'
 
 render(
   <Provider store={store}>
