@@ -3,15 +3,11 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { getPlayersThunkCreator } from '../../reducers/players'
 
-// import playersReducer from '../../reducers/players'
 import './root.css'
 
 class DisconnectedRoot extends Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   players: []
-    // }
   }
   componentDidMount() {
     this.props.gettingPlayers()
