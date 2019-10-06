@@ -25,8 +25,9 @@ nav {
   height: 150px;
 }
 
-.round-info {
+.players-and-round-info {
   display: flex;
+  justify-content: space-around
 }
 
 .player-and-bid {
@@ -35,4 +36,8 @@ nav {
   justify-content: center;
   align-items: center;
   margin: 5px;
+}
+
+.round-info {
+
 }

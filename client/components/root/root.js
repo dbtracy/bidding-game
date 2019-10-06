@@ -9,9 +9,15 @@ class DisconnectedRoot extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      round: 10,
       tricksAvailable: 10,
 
     }
+    this.onChange = this.onChange.bind(this)
+  }
+  onChange(event) {
+    // console.log(event.target.value)
+    this.state.tricksAvailable -= event.target.value
   }
   componentDidMount() {
     this.props.gettingPlayers()
@@ -27,7 +33,8 @@ class DisconnectedRoot extends Component {
         <div className="title">
           <h1>The Bidding Game</h1>
         </div>
-        <div className="round-info">
+        <div className="players-and-round-info">
+          <hr />
           <div className="bid-tracker">
             <p>To bid --></p>
           </div>
@@ -38,11 +45,11 @@ class DisconnectedRoot extends Component {
               return (
                 <div key={player.id} className="player-and-bids">
                   <p>{player.name}</p>
-                  <select name="bids" className="bids">
+                  <select name="bids" className="bids" onChange={this.onChange}>
                     <option value="">Place bid</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                    <option value="0" >0</option>
+                    <option value="1" >1</option>
+                    <option value="2" >2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -58,12 +65,11 @@ class DisconnectedRoot extends Component {
             })}
           </div>
           <hr />
-          <div className="aftermath">
-
+          <div className="round-info">
+            <h1>Round: {this.state.round}</h1>
+            <h3>Tricks Available: {this.state.tricksAvailable}</h3>
           </div>
-          <div className="tricks-remaining">
-
-          </div>
+          <hr />
         </div>
       </div>
     )
