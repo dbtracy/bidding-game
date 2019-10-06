@@ -28,3 +28,10 @@ nav {
 .round-info {
   display: flex;
 }
+
+.player-and-bid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}

@@ -8,11 +8,20 @@ import './root.css'
 class DisconnectedRoot extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      tricksAvailable: 10,
+
+    }
   }
   componentDidMount() {
     this.props.gettingPlayers()
   }
   render() {
+    let tricks = []
+    for (let i = this.state.tricksAvailable; i >= 0; i--) {
+      tricks.push(i)
+    }
+
     return (
       <div className="main-page-body">
         <div className="title">
@@ -22,14 +31,26 @@ class DisconnectedRoot extends Component {
           <div className="bid-tracker">
             <p>To bid --></p>
           </div>
+          <hr />
           <div className="players">
             <p>PLAYERS:</p>
             {this.props.players.map(player => {
               return (
-                <p key={player.id}>{player.name}</p>
+                <div key={player.id} className="player-and-bids">
+                  <p>{player.name}</p>
+                  <select name="bids" className="bids">
+                    {tricks.map(trick => {
+                      return (
+                        <option key="`${trick + 0}`" value="`${trick}`">{trick}</option>
+                      )
+                    })}
+                  </select>
+                  <input type="checkbox" className="made-it" name="made-it" />
+                </div>
               )
             })}
           </div>
+          <hr />
           <div className="aftermath">
 
           </div>
