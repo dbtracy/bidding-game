@@ -5,7 +5,6 @@ import thunkMiddleware from 'redux-thunk'
 import axios from 'axios'
 
 import rootReducer from './reducers'
-import thunk from 'redux-thunk'
 
 export default createStore(
   rootReducer,

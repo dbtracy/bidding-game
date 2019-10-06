@@ -18,7 +18,7 @@ export const getPlayersThunkCreator = () => {
   return async dispatch => {
     try {
       const { data } = await axios.get('/api/players')
-      dispatch(getPlayersActionCreator(data)))
+      dispatch(getPlayersActionCreator(data))
     } catch (error) {
       console.log(error)
     }
