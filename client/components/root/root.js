@@ -17,7 +17,9 @@ class DisconnectedRoot extends Component {
   }
   onChange(event) {
     // console.log(event.target.value)
-    this.state.tricksAvailable -= event.target.value
+    this.setState({
+      tricksAvailable: this.state.tricksAvailable - event.target.value
+    })
   }
   componentDidMount() {
     this.props.gettingPlayers()
