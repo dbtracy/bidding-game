@@ -32,4 +32,13 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    const newPlayer = await Player.create({ name: req.body.name })
+    res.json(newPlayer)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 module.exports = router

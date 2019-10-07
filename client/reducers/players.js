@@ -7,6 +7,7 @@ const initialState = {
 /**********PLAYERS CREATORS**********/
 
 const GET_PLAYERS = 'GET_PLAYERS'
+const ADD_PLAYER = 'ADD_PLAYER'
 
 export const getPlayersActionCreator = players => ({
   type: GET_PLAYERS,
@@ -24,12 +25,32 @@ export const getPlayersThunkCreator = () => {
   }
 }
 
+export const addPlayerActionCreator = player => ({
+  type: ADD_PLAYER,
+  player
+})
+
+export const addPlayerThunkCreator = (name) => {
+  return async dispatch => {
+    try {
+      console.log('HERE HERE')
+      const { data } = await axios.post('/api/players', { name })
+      console.log('DATA:', data)
+      await dispatch(addPlayerActionCreator(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 /************PLAYERS SUB-REDUCER*************/
 
 export const playersReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PLAYERS:
       return { ...state, players: action.players }
+    case ADD_PLAYER:
+      return { ...state, players: [...state.players, action.player] }
     default:
       return state
   }

@@ -41,3 +41,10 @@ nav {
 .round-info {
 
 }
+
+.players-and-add-player {
+  background-color: yellow;
+  display: flex;
+  justify-content: space-between;
+  padding: 5%;
+}
