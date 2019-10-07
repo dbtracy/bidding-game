@@ -11,7 +11,6 @@ class DisconnectedRoot extends Component {
     this.state = {
       round: 10,
       tricksAvailable: 10,
-
     }
     this.onChange = this.onChange.bind(this)
   }
@@ -25,10 +24,11 @@ class DisconnectedRoot extends Component {
     this.props.gettingPlayers()
   }
   render() {
-    let tricks = []
-    for (let i = this.state.tricksAvailable; i >= 0; i--) {
-      tricks.push(i)
-    }
+    // PERHAPS IMPLEMENT THIS FOR DYNAMIC DROPDOWNS
+    // let tricks = []
+    // for (let i = this.state.tricksAvailable; i >= 0; i--) {
+    //   tricks.push(i)
+    // }
 
     return (
       <div className="main-page-body">
