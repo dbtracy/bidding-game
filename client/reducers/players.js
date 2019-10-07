@@ -7,7 +7,6 @@ const initialState = {
 /**********PLAYERS CREATORS**********/
 
 const GET_PLAYERS = 'GET_PLAYERS'
-const ADD_PLAYER = 'ADD_PLAYER'
 
 export const getPlayersActionCreator = players => ({
   type: GET_PLAYERS,
@@ -25,6 +24,10 @@ export const getPlayersThunkCreator = () => {
   }
 }
 
+/**********ADD PLAYER CREATORS**********/
+
+const ADD_PLAYER = 'ADD_PLAYER'
+
 export const addPlayerActionCreator = player => ({
   type: ADD_PLAYER,
   player
@@ -33,10 +36,28 @@ export const addPlayerActionCreator = player => ({
 export const addPlayerThunkCreator = (name) => {
   return async dispatch => {
     try {
-      console.log('HERE HERE')
       const { data } = await axios.post('/api/players', { name })
-      console.log('DATA:', data)
       await dispatch(addPlayerActionCreator(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+/**********DELETE PLAYER CREATORS**********/
+
+const DELETE_PLAYER = 'DELETE_PLAYER'
+
+export const deletePlayerActionCreator = id => ({
+  type: DELETE_PLAYER,
+  id
+})
+
+export const deletePlayerThunkCreator = (id) => {
+  return async dispatch => {
+    try {
+      dispatch(deletePlayerActionCreator(id))
+      await axios.delete(`/api/players/${id}`)
     } catch (error) {
       console.log(error)
     }
@@ -51,6 +72,12 @@ export const playersReducer = (state = initialState, action) => {
       return { ...state, players: action.players }
     case ADD_PLAYER:
       return { ...state, players: [...state.players, action.player] }
+    case DELETE_PLAYER:
+      return {
+        ...state, players: state.players.filter(player => {
+          return player.id !== action.id
+        })
+      }
     default:
       return state
   }

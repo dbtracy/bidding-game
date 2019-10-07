@@ -41,4 +41,17 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletedPlayer = await Player.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.json(deletedPlayer)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 module.exports = router
