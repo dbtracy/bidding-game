@@ -16,6 +16,7 @@ class DisconnectedSetup extends Component {
   onSubmit(event) {
     event.preventDefault()
     this.props.addingPlayer(event.target.name.value)
+    event.target.name.value = ''
   }
   componentDidMount() {
     this.props.gettingPlayers()
@@ -38,15 +39,15 @@ class DisconnectedSetup extends Component {
               )
             })}
           </div>
+          <div>
+            <form onSubmit={this.onSubmit}>
+              <p>Add player:</p>
+              <input type="text" className="nameInput" name="name" />
+              <input type="submit" className="nameSubmit" name="submit" />
+            </form>
+          </div>
         </div>
-        <div>
-          <form onSubmit={this.onSubmit}>
-            <p>Add player:</p>
-            <input type="text" className="nameInput" name="name" />
-            <input type="submit" className="nameSubmit" name="submit" />
-          </form>
-        </div>
-      </div >
+      </div>
     )
   }
 }
