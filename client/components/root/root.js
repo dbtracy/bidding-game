@@ -9,13 +9,13 @@ class DisconnectedRoot extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      totalRounds: 10,
       round: 10,
       tricksAvailable: 10,
     }
     this.onChange = this.onChange.bind(this)
   }
   onChange(event) {
-    // console.log(event.target.value)
     this.setState({
       tricksAvailable: this.state.tricksAvailable - event.target.value
     })
