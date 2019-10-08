@@ -24,14 +24,15 @@ export const getHighestRoundThunkCreator = (action) => {
 
 const UPDATE_HIGHEST_ROUND = 'UPDATE_HIGHEST_ROUND'
 
-export const updateHighestRoundActionCreator = (highestRound) => ({
+export const updateHighestRoundActionCreator = (newHighestRound) => ({
   type: UPDATE_HIGHEST_ROUND,
-  highestRound
+  newHighestRound
 })
 
 export const updateHighestRoundThunkCreator = (action) => {
   return (dispatch) => {
-
+    const updatedRound = newHighestRound
+    dispatch(updateHighestRoundActionCreator(updatedRound))
   }
 }
 
