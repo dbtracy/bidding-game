@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { getPlayersThunkCreator, addPlayerThunkCreator, deletePlayerThunkCreator } from '../../reducers/players'
+import { updateHighestRoundThunkCreator } from '../../reducers/game'
 
 class DisconnectedSetup extends Component {
   constructor(props) {
@@ -12,10 +13,22 @@ class DisconnectedSetup extends Component {
     event.preventDefault()
     this.props.addingPlayer(event.target.name.value)
     event.target.name.value = ''
+    if (this.props.players.length > 5) {
+      let numPlayers = this.props.players.length
+      let remainder = 52 % numPlayers
+      let maxCards = (52 - remainder) / numPlayers
+      this.props.updatingHighestRound(maxCards)
+    }
   }
   componentDidMount() {
     this.props.gettingPlayers()
+    // this.props.
   }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.highestRound !== prevProps.highestRound) {
+  //     this.props.highestRound = this.props.highestRound
+  //   }
+  // }
   render() {
     return (
       <div>
@@ -42,6 +55,9 @@ class DisconnectedSetup extends Component {
             </form>
           </div>
         </div>
+        <div>
+          <h3>Max starting round: {this.props.highestRound}</h3>
+        </div>
       </div>
     )
   }
@@ -49,14 +65,17 @@ class DisconnectedSetup extends Component {
 
 const mapStateToProps = state => {
   return {
-    players: state.playersReducer.players
+    players: state.playersReducer.players,
+    highestRound: state.gameReducer.highestRound
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   gettingPlayers: () => dispatch(getPlayersThunkCreator()),
   addingPlayer: (name) => dispatch(addPlayerThunkCreator(name)),
-  deletingPlayer: (id) => dispatch(deletePlayerThunkCreator(id))
+  deletingPlayer: (id) => dispatch(deletePlayerThunkCreator(id)),
+
+  updatingHighestRound: (newHighestRound) => dispatch(updateHighestRoundThunkCreator(newHighestRound)),
 })
 
 export const Setup = connect(mapStateToProps, mapDispatchToProps)(DisconnectedSetup)

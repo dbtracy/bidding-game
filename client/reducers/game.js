@@ -6,19 +6,19 @@ const initialState = {
 
 /********GET HIGHEST ROUND CREATORS*********/
 
-const GET_HIGHEST_ROUND = 'GET_HIGHEST_ROUND'
+// const GET_HIGHEST_ROUND = 'GET_HIGHEST_ROUND'
 
-export const getHighestRoundActionCreator = (highestRound) => ({
-  type: GET_HIGHEST_ROUND,
-  highestRound
-})
+// export const getHighestRoundActionCreator = (highestRound) => ({
+//   type: GET_HIGHEST_ROUND,
+//   highestRound
+// })
 
-export const getHighestRoundThunkCreator = (action) => {
-  return (dispatch) => {
-    const highestRound = initialState.highestRound
-    dispatch(getHighestRoundActionCreator(highestRound))
-  }
-}
+// export const getHighestRoundThunkCreator = () => {
+//   return (dispatch) => {
+//     const highestRound = initialState.highestRound
+//     dispatch(getHighestRoundActionCreator(highestRound))
+//   }
+// }
 
 /***********UPDATE HIGHEST ROUND CREATORS************/
 
@@ -29,10 +29,14 @@ export const updateHighestRoundActionCreator = (newHighestRound) => ({
   newHighestRound
 })
 
-export const updateHighestRoundThunkCreator = (action) => {
-  return (dispatch) => {
-    const updatedRound = newHighestRound
-    dispatch(updateHighestRoundActionCreator(updatedRound))
+export const updateHighestRoundThunkCreator = (newHighestRound) => {
+  return async dispatch => {
+    try {
+      // const updatedRound = action.newHighestRound
+      await dispatch(updateHighestRoundActionCreator(newHighestRound))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
@@ -40,6 +44,8 @@ export const updateHighestRoundThunkCreator = (action) => {
 
 export const gameReducer = (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_HIGHEST_ROUND:
+      return { ...state, highestRound: action.newHighestRound }
     default:
       return state
   }
