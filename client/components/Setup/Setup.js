@@ -6,7 +6,6 @@ import { getPlayersThunkCreator, addPlayerThunkCreator, deletePlayerThunkCreator
 class DisconnectedSetup extends Component {
   constructor(props) {
     super(props)
-    this.deletePlayer = this.deletePlayer.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
   onSubmit(event) {
