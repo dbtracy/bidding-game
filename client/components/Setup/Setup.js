@@ -9,10 +9,6 @@ class DisconnectedSetup extends Component {
     this.deletePlayer = this.deletePlayer.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
-  deletePlayer(event) {
-    console.log(event.target)
-    // this.props.del
-  }
   onSubmit(event) {
     event.preventDefault()
     this.props.addingPlayer(event.target.name.value)
