@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { getPlayersThunkCreator, addPlayerThunkCreator, deletePlayerThunkCreator } from '../../reducers/players'
-import { updateHighestRoundThunkCreator } from '../../reducers/game'
+import { updateHighestRoundThunkCreator, getHighestRoundThunkCreator } from '../../reducers/game'
 
 class DisconnectedSetup extends Component {
   constructor(props) {
@@ -13,23 +13,14 @@ class DisconnectedSetup extends Component {
     event.preventDefault()
     this.props.addingPlayer(event.target.name.value)
     event.target.name.value = ''
-    if (this.props.players.length > 5) {
-      let numPlayers = this.props.players.length
-      let remainder = 52 % numPlayers
-      let maxCards = (52 - remainder) / numPlayers
-      this.props.updatingHighestRound(maxCards)
-    }
   }
   componentDidMount() {
     this.props.gettingPlayers()
-    // this.props.
   }
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.highestRound !== prevProps.highestRound) {
-  //     this.props.highestRound = this.props.highestRound
-  //   }
-  // }
   render() {
+    let numPlayers = this.props.players.length
+    let maxCards = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+
     return (
       <div>
         <h1>Enter game info:</h1>
@@ -56,7 +47,7 @@ class DisconnectedSetup extends Component {
           </div>
         </div>
         <div>
-          <h3>Max starting round: {this.props.highestRound}</h3>
+          <h3>Max starting round: {maxCards}</h3>
         </div>
       </div>
     )
@@ -75,7 +66,8 @@ const mapDispatchToProps = dispatch => ({
   addingPlayer: (name) => dispatch(addPlayerThunkCreator(name)),
   deletingPlayer: (id) => dispatch(deletePlayerThunkCreator(id)),
 
-  updatingHighestRound: (newHighestRound) => dispatch(updateHighestRoundThunkCreator(newHighestRound)),
+  // gettingHighestRound: (highestRound) => dispatch(getHighestRoundThunkCreator(highestRound)),
+  // updatingHighestRound: (newHighestRound) => dispatch(updateHighestRoundThunkCreator(newHighestRound))
 })
 
 export const Setup = connect(mapStateToProps, mapDispatchToProps)(DisconnectedSetup)
