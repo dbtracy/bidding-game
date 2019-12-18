@@ -49,6 +49,9 @@ class DisconnectedSetup extends Component {
         <div>
           <h3>Max starting round: {maxCards}</h3>
         </div>
+        <div>
+          <button type="button">Start Game!</button>
+        </div>
       </div>
     )
   }
