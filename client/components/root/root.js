@@ -9,21 +9,24 @@ class DisconnectedRoot extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      totalRounds: 10,
-      round: 10,
-      tricksAvailable: 10,
+      currRound: 0,
+      tricksTaken: 0,
     }
-    this.onChange = this.onChange.bind(this)
+    this.placeBid = this.placeBid.bind(this)
   }
-  onChange(event) {
+  placeBid(event) {
     this.setState({
-      tricksAvailable: this.state.tricksAvailable - event.target.value
+      tricksTaken: parseInt(this.state.tricksTaken) + parseInt(event.target.value)
     })
   }
   componentDidMount() {
     this.props.gettingPlayers()
   }
   render() {
+    let players = this.props.players
+    let numPlayers = players.length
+    let maxCards = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+    let roundMaxCards = maxCards - this.state.currRound
 
     return (
       <div className="main-page-body">
@@ -38,11 +41,11 @@ class DisconnectedRoot extends Component {
           <hr />
           <div className="players">
             <p>PLAYERS:</p>
-            {this.props.players.map(player => {
+            {players.map(player => {
               return (
                 <div key={player.id} className="player-and-bids">
                   <p>{player.name}</p>
-                  <select name="bids" className="bids" onChange={this.onChange}>
+                  <select name="bids" className="bids" onChange={this.placeBid}>
                     <option value="">Place bid</option>
                     <option value="0" >0</option>
                     <option value="1" >1</option>
@@ -63,8 +66,8 @@ class DisconnectedRoot extends Component {
           </div>
           <hr />
           <div className="round-info">
-            <h1>Round: {this.state.round}</h1>
-            <h3>Tricks Available: {this.state.tricksAvailable}</h3>
+            <h1>Round: {roundMaxCards}</h1>
+            <h3>Tricks Available: {roundMaxCards - this.state.tricksTaken}</h3>
           </div>
           <hr />
         </div>

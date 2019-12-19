@@ -67,10 +67,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   gettingPlayers: () => dispatch(getPlayersThunkCreator()),
   addingPlayer: (name) => dispatch(addPlayerThunkCreator(name)),
-  deletingPlayer: (id) => dispatch(deletePlayerThunkCreator(id)),
-
-  // gettingHighestRound: (highestRound) => dispatch(getHighestRoundThunkCreator(highestRound)),
-  // updatingHighestRound: (newHighestRound) => dispatch(updateHighestRoundThunkCreator(newHighestRound))
+  deletingPlayer: (id) => dispatch(deletePlayerThunkCreator(id))
 })
 
 export const Setup = connect(mapStateToProps, mapDispatchToProps)(DisconnectedSetup)
