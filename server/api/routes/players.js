@@ -54,4 +54,22 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    console.log('REQ.BODY:', req.body)
+    const [, updatedPlayer] = await Player.update({
+      points: req.body.points
+    }, {
+      where: {
+        id: req.params.id
+      },
+      returning: true,
+      plain: true
+    })
+    console.log('UPDATED PLAYER:', updatedPlayer)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 module.exports = router

@@ -17,6 +17,7 @@ export class Frame extends Component {
     this.showGamePlay = this.showGamePlay.bind(this)
     this.addPlayer = this.addPlayer.bind(this)
     this.deletePlayer = this.deletePlayer.bind(this)
+    this.placeBid = this.placeBid.bind(this)
   }
   showSetup() {
     this.setState({ active: 'Setup' })
@@ -43,6 +44,11 @@ export class Frame extends Component {
       console.log(error)
     }
   }
+  placeBid(event) {
+    this.setState({
+      tricksTaken: parseInt(this.state.tricksTaken) + parseInt(event.target.value)
+    })
+  }
   async componentDidMount() {
     console.log('MOUNTED!')
     try {
@@ -51,7 +57,7 @@ export class Frame extends Component {
     } catch (error) {
       console.log(error)
     }
-    this.setState({ active: 'Setup' })
+    this.setState({ active: 'GamePlay' })
   }
   render() {
     console.log('STATE:', this.state)
@@ -64,7 +70,7 @@ export class Frame extends Component {
         <div>{active === 'Setup' ? (
           <Setup players={this.state.players} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} />
         ) : active === 'GamePlay' ? (
-          <GamePlay players={this.state.players} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} />
+          <GamePlay players={this.state.players} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} />
         ) : null}</div>
       </div>
     )
