@@ -5,37 +5,44 @@ export class GamePlay extends Component {
   constructor(props) {
     super(props)
     this.submitRound = this.submitRound.bind(this)
+    this.devResetScores = this.devResetScores.bind(this)
   }
   submitRound() {
     const bidsArr = Array.from(document.getElementsByClassName('player-and-bids'))
-    // console.log('*************')
     bidsArr.forEach(async bid => {
-      // console.log('BID')
-      // console.log(bid)
-      // console.log('NODES:', bid.childNodes)
-      // console.log('NAME:', bid.childNodes[0].innerText)
-      // console.log('VALUE:', bid.childNodes[1].value || 0)
-      // console.log('CHECKED:', bid.childNodes[2].checked)
-      // console.log('*************')
       if (bid.childNodes[2].checked) {
         const points = 10 + (Number(bid.childNodes[1].value) || 0)
         const player = this.props.players.find(player => player.name === bid.childNodes[0].innerText)
-        console.log(player)
+        const playerPoints = player.points
+        const updatedPoints = points + playerPoints
+        player.points = updatedPoints
         try {
-          console.log('putting?')
-          console.log(player.id)
           const updatedPlayer = await axios.put(`api/players/${player.id}`, {
-            points
+            points: updatedPoints
           })
-          console.log(updatedPlayer)
         } catch (error) {
           console.log(error)
         }
       }
     })
+    console.log('PLAYERS:', this.props.players)
+  }
+  devResetScores() {
+    const bidsArr = Array.from(document.getElementsByClassName('player-and-bids'))
+    bidsArr.forEach(async bid => {
+      const player = this.props.players.find(player => player.name === bid.childNodes[0].innerText)
+      console.log(player.name)
+      try {
+        const updatedPlayer = await axios.put(`api/players/${player.id}`, {
+          points: 0
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    })
   }
   render() {
-    let players = this.props.players
+    let players = this.props.players.sort((a, b) => a.id - b.id)
     let numPlayers = players.length
     let maxCards = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
     let roundMaxCards = maxCards - this.props.currRound
@@ -90,10 +97,11 @@ export class GamePlay extends Component {
             <h1>Round: {roundMaxCards}</h1>
             <h3>Tricks Available: {roundMaxCards - this.props.tricksTaken}</h3>
             <button type="button" name="round-submit" onClick={this.submitRound}>Submit Round</button>
+            <button type="button" name="dev-reset-scores" onClick={this.devResetScores} style={{ 'marginLeft': '10px' }}>dev: reset scores</button>
           </div>
           <hr />
         </div>
-      </div>
+      </div >
     )
   }
 }

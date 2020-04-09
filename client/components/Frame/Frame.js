@@ -50,7 +50,6 @@ export class Frame extends Component {
     })
   }
   async componentDidMount() {
-    console.log('MOUNTED!')
     try {
       const { data } = await axios.get('/api/players')
       this.setState({ players: data })
@@ -60,7 +59,6 @@ export class Frame extends Component {
     this.setState({ active: 'GamePlay' })
   }
   render() {
-    console.log('STATE:', this.state)
     const active = this.state.active
     return (
       <div>
