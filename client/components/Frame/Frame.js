@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { GamePlay } from '../GamePlay/GamePlay'
 import { Setup } from '../Setup/Setup'
+import { Scoring } from '../Scoring/Scoring'
 
 export class Frame extends Component {
   constructor() {
@@ -15,6 +16,7 @@ export class Frame extends Component {
     }
     this.showSetup = this.showSetup.bind(this)
     this.showGamePlay = this.showGamePlay.bind(this)
+    this.showScoring = this.showScoring.bind(this)
     this.addPlayer = this.addPlayer.bind(this)
     this.deletePlayer = this.deletePlayer.bind(this)
     this.placeBid = this.placeBid.bind(this)
@@ -24,6 +26,9 @@ export class Frame extends Component {
   }
   showGamePlay() {
     this.setState({ active: 'GamePlay' })
+  }
+  showScoring() {
+    this.setState({ active: 'Scoring' })
   }
   async addPlayer(event) {
     event.preventDefault()
@@ -56,19 +61,27 @@ export class Frame extends Component {
     } catch (error) {
       console.log(error)
     }
-    this.setState({ active: 'GamePlay' })
+    this.setState({ active: 'Scoring' })
   }
   render() {
     const active = this.state.active
     return (
-      <div>
-        <h1 className="frame-title">The Bidding Game!!1!</h1>
-        <button type="button" onClick={this.showSetup}>Setup</button>
-        <button type="button" onClick={this.showGamePlay}>Game</button>
+      <div className="frame">
+        <div className="frame-top">
+          <h1 className="frame-title">The Bidding Game!!1!</h1>
+          <div className="navbar">
+            <button className="navbar-btn" type="button" onClick={this.showSetup}>Setup</button>
+            <button className="navbar-btn" type="button" onClick={this.showGamePlay}>Game</button>
+            <button className="navbar-btn" type="button" onClick={this.showScoring}>Current Scores</button>
+          </div>
+        </div>
+
         <div>{active === 'Setup' ? (
           <Setup players={this.state.players} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} />
         ) : active === 'GamePlay' ? (
           <GamePlay players={this.state.players} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} />
+        ) : active === 'Scoring' ? (
+          <Scoring players={this.state.players} />
         ) : null}</div>
       </div>
     )

@@ -1,33 +1,148 @@
 * {
   box-sizing: border-box;
   font-family: 'Courier New', Courier, monospace;
+  /* font-family: Optima,Segoe,Segoe UI,Candara,Calibri,Arial,sans-serif;  */
   /* font-size: 110%; */
 }
 
 body {
-  background-color: #acacac
+  /* background-color: #e0d6c8; */
+  background-image: url('digital-marketing-wallpaper-png-5.png');
+  background-size: cover;
+  background-position: center;
 }
 
 nav {
-  background-color: #acacac
+  background-color: #e0d6c8;
 }
 
 .bg {
   margin: 0
 }
 
-.main-page-body {
-  background-color: #acacac
+/************************ FRAME ************************/
+
+.frame-top {
+  border-radius: 0 0 10px 10px;
+  padding: 2% 0 2% 0;
+  background-color: #e0d6c8;
+  color: hsla(0,0%,20%,1);
+  text-shadow: hsla(0,0%,40%,.5) 0 -1px 0, hsla(0,0%,100%,.6) 0 2px 1px;
+
+  background-color: hsl(0,0%,90%);
+  box-shadow: inset hsla(0,0%,15%,  1) 0  0px 0px 4px, /* border */
+    inset hsla(0,0%,15%, .8) 0 -1px 5px 4px, /* soft SD */
+    inset hsla(0,0%,0%, .25) 0 -1px 0px 7px, /* bottom SD */
+    /* inset hsla(0,0%,100%,.7) 0  2px 1px 7px, top HL */
+
+    hsla(0,0%, 0%,.15) 0 -5px 6px 4px, /* outer SD */
+    hsla(0,0%,100%,.5) 0  5px 6px 4px; /* outer HL */
+
+  transition: color .2s;
+  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
+
+    linear-gradient(180deg, hsl(0,0%,78%)  0%,
+    hsl(0,0%,90%) 47%,
+    hsl(0,0%,78%) 53%,
+    hsl(0,0%,70%)100%);
 }
 
-.title {
-  background-color: #e0d6c8;
-  height: 150px;
+.frame-title {
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.navbar-btn {
+  margin-left: 2%;
+  margin-right: 2%;
+  border: none;
+  background-color: transparent;
+  font-size: large;
+  text-decoration: none;
+  cursor: pointer;
+  outline:0;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.2s linear;
+}
+
+.navbar-btn:hover {
+  border-bottom: 2px solid orangered;
+}
+
+/************************ SETUP ************************/
+
+.setup-body {
+  background-color: rgb(245, 245, 245, 0.6);
+  border-radius: 10px;
+  max-width: 40%;
+  max-height: auto;
+  margin: auto;
+  margin-top: 2%;
+}
+
+.players-and-add-player {
+  display: flex;
+  justify-content: space-between;
+  padding: 5%;
+}
+
+.players-entered {
+  background-color: rgb(245, 245, 245, 0.6);
+  border-radius: 10px;;
+  padding: 2%;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+/************************ GAMEPLAY ************************/
+
+.gameplay-body {
+
+}
+
+.gameplay-title {
+  /* background-color: #e0d6c8; */
+  height: 100px;
+  text-align: justify;
+  display: flex;
+  justify-content: center;
+}
+
+hr {
+  margin: 1%;
 }
 
 .players-and-round-info {
   display: flex;
-  justify-content: space-around
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.card {
+  background-color: rgb(245, 245, 245, 0.6);
+  border-radius: 10px;
+  max-height: 450px;
+  overflow: scroll;
+}
+
+.card-title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgba(201, 201, 201, 0.6);
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+}
+
+.card-info {
+  padding: 0 50px 10px 50px;
 }
 
 .player-and-bid {
@@ -35,16 +150,30 @@ nav {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  text-align: center;
   margin: 5px;
 }
 
-.round-info {
+/************************ SCORE ************************/
 
+.scoring-body {
+  background-color: rgb(245, 245, 245, 0.6);
+  border-radius: 10px;
+  max-width: 80%;
+  max-height: auto;
+  margin: auto;
+  margin-top: 2%;
+  text-align: center;
 }
 
-.players-and-add-player {
-  background-color: yellow;
+.score-table {
+  /* display: flex; */
+  justify-content: space-between;
+  padding: 0 5% 0 5%;
+}
+
+.score-table-row {
   display: flex;
   justify-content: space-between;
-  padding: 5%;
+  padding: 0 5% 0 5%;
 }
