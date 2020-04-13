@@ -6,10 +6,7 @@
 }
 
 body {
-  /* background-color: #e0d6c8; */
   background-image: url('wood-pattern-full.png');
-  background-size: cover;
-  background-position: center;
 }
 
 nav {
@@ -78,42 +75,17 @@ nav {
 /************************ SETUP ************************/
 
 .setup-body {
-  background-color: rgb(245, 245, 245, 0.6);
   border-radius: 10px;
-  max-width: 40%;
-  max-height: auto;
   margin: auto;
   margin-top: 2%;
-}
-
-.players-and-add-player {
   display: flex;
-  justify-content: space-between;
-  padding: 5%;
-}
-
-.players-entered {
-  background-color: rgb(245, 245, 245, 0.6);
-  border-radius: 10px;;
-  padding: 2%;
-  max-height: 400px;
-  overflow: scroll;
-}
-
-/************************ GAMEPLAY ************************/
-
-.gameplay-body {
-
-}
-
-hr {
-  margin: 1%;
-}
-
-.players-and-round-info {
-  display: flex;
-  flex-direction: row;
   justify-content: space-around;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card {
@@ -134,6 +106,63 @@ hr {
 
 .card-info {
   padding: 0 50px 10px 50px;
+}
+
+.add-player {
+  display: flex;
+}
+
+.nameInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.cube-rule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-direction: column; */
+}
+
+.max-round {
+  display: flex;
+  flex-direction: column;
+}
+
+.max-round-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.start-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.players-entered {
+  border-radius: 10px;
+  padding: 2%;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+/************************ GAMEPLAY ************************/
+
+.gameplay-body {
+
+}
+
+hr {
+  margin: 1%;
+}
+
+.players-and-round-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .player-and-bid {

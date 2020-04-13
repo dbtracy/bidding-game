@@ -61,7 +61,7 @@ export class Frame extends Component {
     } catch (error) {
       console.log(error)
     }
-    this.setState({ active: 'Scoring' })
+    this.setState({ active: 'Setup' })
   }
   render() {
     const active = this.state.active
@@ -72,31 +72,35 @@ export class Frame extends Component {
           <div className="navbar">
             <button className="navbar-btn" type="button" onClick={this.showSetup}>Setup</button>
             <button className="navbar-btn" type="button" onClick={this.showGamePlay}>Game</button>
-            <button className="navbar-btn" type="button" onClick={this.showScoring}>Current Scores</button>
+            <button className="navbar-btn" type="button" onClick={this.showScoring}>Scores</button>
           </div>
         </div>
 
-
-
-        <div>{active === 'Setup' ? (
-          <div className="page-title">
-            <h1>Setup</h1>
-            <hr />
+        {active === 'Setup' ? (
+          <div>
+            <div className="page-title">
+              <h1>Setup</h1>
+              <hr />
+            </div>
             <Setup players={this.state.players} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} />
           </div>
         ) : active === 'GamePlay' ? (
-          <div className="page-title">
-            <h1>Game Play</h1>
-            <hr />
+          <div>
+            <div className="page-title">
+              <h1>Game Play</h1>
+              <hr />
+            </div>
             <GamePlay players={this.state.players} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} />
           </div>
         ) : active === 'Scoring' ? (
-          <div className="page-title">
-            <h1>Scoring</h1>
-            <hr />
+          <div>
+            <div className="page-title">
+              <h1>Scoring</h1>
+              <hr />
+            </div>
             <Scoring players={this.state.players} />
           </div>
-        ) : null}</div>
+        ) : null}
       </div>
     )
   }

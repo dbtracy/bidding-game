@@ -9,7 +9,6 @@ export class Scoring extends Component {
     const players = this.props.players.sort((a, b) => a.id - b.id)
     return (
       <div className="scoring-body">
-        <h1>Scoring</h1>
         <div className="score-table">
           <div className="score-table-row">
             <p>Round</p>
@@ -35,7 +34,7 @@ export class Scoring extends Component {
             })}
           </div>
         </div>
-      </div >
+      </div>
     )
   }
 }
