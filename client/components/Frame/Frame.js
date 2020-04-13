@@ -76,12 +76,26 @@ export class Frame extends Component {
           </div>
         </div>
 
+
+
         <div>{active === 'Setup' ? (
-          <Setup players={this.state.players} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} />
+          <div className="page-title">
+            <h1>Setup</h1>
+            <hr />
+            <Setup players={this.state.players} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} />
+          </div>
         ) : active === 'GamePlay' ? (
-          <GamePlay players={this.state.players} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} />
+          <div className="page-title">
+            <h1>Game Play</h1>
+            <hr />
+            <GamePlay players={this.state.players} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} />
+          </div>
         ) : active === 'Scoring' ? (
-          <Scoring players={this.state.players} />
+          <div className="page-title">
+            <h1>Scoring</h1>
+            <hr />
+            <Scoring players={this.state.players} />
+          </div>
         ) : null}</div>
       </div>
     )

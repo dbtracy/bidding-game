@@ -7,7 +7,7 @@
 
 body {
   /* background-color: #e0d6c8; */
-  background-image: url('digital-marketing-wallpaper-png-5.png');
+  background-image: url('wood-pattern-full.png');
   background-size: cover;
   background-position: center;
 }
@@ -25,7 +25,8 @@ nav {
 .frame-top {
   border-radius: 0 0 10px 10px;
   padding: 2% 0 2% 0;
-  background-color: #e0d6c8;
+  margin: 0 20% 0 20%;
+  /* background-color: #87ae51; */
   color: hsla(0,0%,20%,1);
   text-shadow: hsla(0,0%,40%,.5) 0 -1px 0, hsla(0,0%,100%,.6) 0 2px 1px;
 
@@ -37,16 +38,6 @@ nav {
 
     hsla(0,0%, 0%,.15) 0 -5px 6px 4px, /* outer SD */
     hsla(0,0%,100%,.5) 0  5px 6px 4px; /* outer HL */
-
-  transition: color .2s;
-  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
-    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
-    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
-
-    linear-gradient(180deg, hsl(0,0%,78%)  0%,
-    hsl(0,0%,90%) 47%,
-    hsl(0,0%,78%) 53%,
-    hsl(0,0%,70%)100%);
 }
 
 .frame-title {
@@ -74,6 +65,14 @@ nav {
 
 .navbar-btn:hover {
   border-bottom: 2px solid orangered;
+}
+
+.page-title {
+  /* background-color: #e0d6c8; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /************************ SETUP ************************/
@@ -105,14 +104,6 @@ nav {
 
 .gameplay-body {
 
-}
-
-.gameplay-title {
-  /* background-color: #e0d6c8; */
-  height: 100px;
-  text-align: justify;
-  display: flex;
-  justify-content: center;
 }
 
 hr {

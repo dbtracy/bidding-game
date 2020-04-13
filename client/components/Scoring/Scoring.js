@@ -13,6 +13,7 @@ export class Scoring extends Component {
         <div className="score-table">
           <div className="score-table-row">
             <p>Round</p>
+            <p>Cards</p>
             {players.map(player => {
               return (
                 <div key={player.id}>
@@ -23,7 +24,8 @@ export class Scoring extends Component {
           </div>
           <hr />
           <div className="score-table-row">
-            <p>0</p>
+            <p>1</p>
+            <p>10</p>
             {players.map(player => {
               return (
                 <div className="round-row" key={player.id}>
