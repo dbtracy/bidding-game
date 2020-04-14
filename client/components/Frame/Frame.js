@@ -4,6 +4,7 @@ import axios from 'axios'
 import { GamePlay } from '../GamePlay/GamePlay'
 import { Setup } from '../Setup/Setup'
 import { Scoring } from '../Scoring/Scoring'
+import { emptyDummyGame, dummyGame } from '../Scoring/dummyGame'
 
 export class Frame extends Component {
   constructor() {
@@ -12,13 +13,15 @@ export class Frame extends Component {
       players: [],
       currRound: 0,
       tricksTaken: 0,
-      active: ''
+      active: '',
+      game: emptyDummyGame
     }
     this.showSetup = this.showSetup.bind(this)
     this.showGamePlay = this.showGamePlay.bind(this)
     this.showScoring = this.showScoring.bind(this)
     this.addPlayer = this.addPlayer.bind(this)
     this.deletePlayer = this.deletePlayer.bind(this)
+    this.createGame = this.createGame.bind(this)
     this.placeBid = this.placeBid.bind(this)
   }
   showSetup() {
@@ -48,6 +51,33 @@ export class Frame extends Component {
     } catch (error) {
       console.log(error)
     }
+  }
+  createGame() {
+    // console.log('empty game at top:', emptyDummyGame)
+    for (let round in emptyDummyGame) delete emptyDummyGame[round]
+    let numPlayers = this.state.players.length
+    let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+    let numRounds = max * 2 + max - 2
+    // console.log('num players:', numPlayers)
+    // console.log('max cards:', max)
+    // console.log('num rounds:', numRounds)
+
+    for (let i = 1; i <= numRounds; i++) {
+      let numCards
+      if (i < max) {
+        numCards = max + 1 - i
+      } else if (i > max * 2 - 1) {
+        numCards = i - (max * 2 - 2)
+      } else {
+        numCards = 1
+      }
+      emptyDummyGame[`${i}`] = {
+        round: i,
+        cards: numCards
+      }
+    }
+
+    console.log('game:', this.state.game)
   }
   placeBid(event) {
     this.setState({
@@ -82,7 +112,7 @@ export class Frame extends Component {
               <h1>Setup</h1>
               <hr />
             </div>
-            <Setup players={this.state.players} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} />
+            <Setup players={this.state.players} game={this.state.game} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} />
           </div>
         ) : active === 'GamePlay' ? (
           <div>
@@ -98,7 +128,7 @@ export class Frame extends Component {
               <h1>Scoring</h1>
               <hr />
             </div>
-            <Scoring players={this.state.players} />
+            <Scoring players={this.state.players} game={this.state.game} />
           </div>
         ) : null}
       </div>

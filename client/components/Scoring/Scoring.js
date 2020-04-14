@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+
+
 export class Scoring extends Component {
   constructor(props) {
     super(props)
   }
   render() {
+    console.log('EMPTY DUMMY:', this.props.game)
+    // console.log('DUMMY:', dummyGame)
     const players = this.props.players.sort((a, b) => a.id - b.id)
     return (
       <div className="scoring-body">
@@ -34,6 +38,14 @@ export class Scoring extends Component {
             })}
           </div>
         </div>
+        <button onClick={() => {
+          if (this.props.game['poo']) {
+            this.props.game['poo'] += 1
+          } else {
+            this.props.game['poo'] = 1
+          }
+          console.log(this.props.game)
+        }}>Change score</button>
       </div>
     )
   }

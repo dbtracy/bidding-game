@@ -10,7 +10,7 @@ body {
 }
 
 nav {
-  background-color: #e0d6c8;
+  /* background-color: #e0d6c8; */
 }
 
 .bg {
@@ -65,7 +65,6 @@ nav {
 }
 
 .page-title {
-  /* background-color: #e0d6c8; */
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -79,7 +78,7 @@ nav {
   margin: auto;
   margin-top: 2%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .game-info {
@@ -91,8 +90,17 @@ nav {
 .card {
   background-color: rgb(245, 245, 245, 0.6);
   border-radius: 10px;
-  max-height: 450px;
-  overflow: scroll;
+  max-height: 400px;
+  overflow: hidden;
+  transition: background-color 0.1s linear;
+}
+
+.card:hover {
+  background-color: rgb(245, 245, 245, 0.8);
+}
+
+.enter-players {
+  margin-bottom: 60px;
 }
 
 .card-title {
@@ -105,14 +113,23 @@ nav {
 }
 
 .card-info {
-  padding: 0 50px 10px 50px;
+  padding: 0 30px 10px 30px;
+  min-width: 220px;
+  max-height: 335px;
+  overflow: scroll;
+}
+
+.players-entered {
+  border-radius: 10px;
 }
 
 .add-player {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-.nameInput {
+.name-input {
   display: flex;
   flex-direction: column;
 }
@@ -121,7 +138,6 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* flex-direction: column; */
 }
 
 .max-round {
@@ -142,18 +158,28 @@ nav {
   height: 50px;
 }
 
-.players-entered {
-  border-radius: 10px;
-  padding: 2%;
-  max-height: 400px;
-  overflow: scroll;
+.player-entered {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.delete-player-btn {
+  height: auto;
+  border: none;
+  border-radius: 3px;
+  background-color: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s linear;
+}
+
+.delete-player-btn:hover {
+  background-color: orangered;
 }
 
 /************************ GAMEPLAY ************************/
-
-.gameplay-body {
-
-}
 
 hr {
   margin: 1%;
