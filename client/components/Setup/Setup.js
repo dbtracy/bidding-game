@@ -4,11 +4,21 @@ import axios from 'axios'
 export class Setup extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      dealer: ''
+    }
+    this.changeDealer = this.changeDealer.bind(this)
+  }
+  changeDealer(event) {
+    this.setState({ dealer: event.target.value })
   }
   render() {
     let players = this.props.players.sort((a, b) => a.id - b.id)
     let numPlayers = this.props.players.length
     let maxCards = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+    // console.log(players)
+    let dealer = this.state.dealer
+    // console.log('DEALER IN SETUP:', dealer)
 
     return (
       <div className="setup-body">
@@ -36,17 +46,23 @@ export class Setup extends Component {
               <h3>Other game info:</h3>
             </div>
             <div className="card-info">
+              <form className="set-dealer-form" onSubmit={() => this.props.setDealer(event, dealer)}>
+                <div className="set-dealer-input">
+                  <label htmlFor="set-dealer-input">Set first dealer:</label>
+                  <input type="text" name="name" size="6" value={this.state.dealer} onChange={this.changeDealer} />
+                </div>
+              </form>
+              <hr />
+              <div className="max-round">
+                <div className="max-round-input">
+                  <p>Set max round:</p>
+                  <input type="text" className="max-round-input" name="name" size="3" placeholder={maxCards} />
+                </div>
+              </div>
+              <hr />
               <div className="cube-rule">
                 <p>Cube rule?</p>
                 <input type="checkbox" name="cube-rule" />
-              </div>
-              <hr />
-              <div className="max-round">
-                <h3>Max starting round: {maxCards}</h3>
-                <div className="max-round-input">
-                  <p>Set max round:</p>
-                  <input type="text" className="maxRoundInput" name="name" size="3" />
-                </div>
               </div>
               <hr />
               <div className="start-game">
@@ -78,7 +94,7 @@ export class Setup extends Component {
           </div>
         </div>
 
-      </div>
+      </div >
     )
   }
 }

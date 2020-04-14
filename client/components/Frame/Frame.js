@@ -14,7 +14,8 @@ export class Frame extends Component {
       currRound: 0,
       tricksTaken: 0,
       active: '',
-      game: emptyDummyGame
+      game: emptyDummyGame,
+      dealer: ''
     }
     this.showSetup = this.showSetup.bind(this)
     this.showGamePlay = this.showGamePlay.bind(this)
@@ -22,6 +23,7 @@ export class Frame extends Component {
     this.addPlayer = this.addPlayer.bind(this)
     this.deletePlayer = this.deletePlayer.bind(this)
     this.createGame = this.createGame.bind(this)
+    this.setDealer = this.setDealer.bind(this)
     this.placeBid = this.placeBid.bind(this)
   }
   showSetup() {
@@ -53,31 +55,34 @@ export class Frame extends Component {
     }
   }
   createGame() {
-    // console.log('empty game at top:', emptyDummyGame)
     for (let round in emptyDummyGame) delete emptyDummyGame[round]
     let numPlayers = this.state.players.length
     let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
     let numRounds = max * 2 + max - 2
-    // console.log('num players:', numPlayers)
-    // console.log('max cards:', max)
-    // console.log('num rounds:', numRounds)
-
     for (let i = 1; i <= numRounds; i++) {
       let numCards
-      if (i < max) {
-        numCards = max + 1 - i
-      } else if (i > max * 2 - 1) {
-        numCards = i - (max * 2 - 2)
-      } else {
-        numCards = 1
-      }
+      if (i < max) numCards = max + 1 - i
+      else if (i > max * 2 - 1) numCards = i - (max * 2 - 2)
+      else numCards = 1
       emptyDummyGame[`${i}`] = {
         round: i,
         cards: numCards
       }
     }
-
-    console.log('game:', this.state.game)
+    this.state.game['1']['dealer'] = this.state.dealer
+    this.showGamePlay()
+    console.log('GAME:', this.state.game)
+  }
+  setDealer(event, name) {
+    event.preventDefault()
+    // event.persist()
+    if (this.state.players.find(player => player.name === name)) {
+      console.log('player exists!')
+      this.setState({ dealer: name })
+    } else {
+      console.log('player does not exist!')
+      //add error text below
+    }
   }
   placeBid(event) {
     this.setState({
@@ -112,7 +117,7 @@ export class Frame extends Component {
               <h1>Setup</h1>
               <hr />
             </div>
-            <Setup players={this.state.players} game={this.state.game} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} />
+            <Setup players={this.state.players} game={this.state.game} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} setDealer={this.setDealer} />
           </div>
         ) : active === 'GamePlay' ? (
           <div>

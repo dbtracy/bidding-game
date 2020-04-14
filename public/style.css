@@ -113,6 +113,8 @@ nav {
 }
 
 .card-info {
+  display: flex;
+  flex-direction: column;
   padding: 0 30px 10px 30px;
   min-width: 220px;
   max-height: 335px;
@@ -132,6 +134,19 @@ nav {
 .name-input {
   display: flex;
   flex-direction: column;
+}
+
+.set-dealer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.set-dealer-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
 }
 
 .cube-rule {
