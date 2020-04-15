@@ -73,9 +73,13 @@ nav {
 
 /************************ SETUP ************************/
 
+.setup-frame {
+  display: flex;
+  flex-direction: column;
+}
+
 .setup-body {
   border-radius: 10px;
-  margin: auto;
   margin-top: 2%;
   display: flex;
   justify-content: space-evenly;
@@ -92,6 +96,7 @@ nav {
   border-radius: 10px;
   max-height: 400px;
   overflow: hidden;
+  box-shadow: 3px 7px 10px rgb(62, 62, 62);
   transition: background-color 0.1s linear;
 }
 
@@ -109,6 +114,7 @@ nav {
   width: 100%;
   background-color: rgba(201, 201, 201, 0.6);
   border-radius: 10px 10px 0 0;
+  box-shadow: 0px 2px 5px rgb(62, 62, 62);
   text-align: center;
 }
 
@@ -171,6 +177,7 @@ nav {
   justify-content: center;
   align-items: center;
   height: 50px;
+  margin-top: 40px;
 }
 
 .player-entered {
@@ -202,8 +209,8 @@ hr {
 
 .players-and-round-info {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  margin-top: 2%;
 }
 
 .player-and-bid {
@@ -230,11 +237,29 @@ hr {
 .score-table {
   /* display: flex; */
   justify-content: space-between;
-  padding: 0 5% 0 5%;
 }
 
 .score-table-row {
   display: flex;
   justify-content: space-between;
   padding: 0 5% 0 5%;
+}
+
+.titles {
+  background-color: rgb(245, 245, 245, 0.6);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 1px 3px rgb(62, 62, 62);
+  margin-bottom: 7px;
+}
+
+.score {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin: 0 15px 0 15px;
+}
+
+.score-totals {
+  display: flex;
+  justify-content: space-evenly;
 }

@@ -11,10 +11,11 @@ export class Frame extends Component {
     super()
     this.state = {
       players: [],
-      currRound: 0,
+      game: {},
+      maxRound: 0,
+      currRound: 1,
       tricksTaken: 0,
       active: '',
-      game: emptyDummyGame,
       dealer: ''
     }
     this.showSetup = this.showSetup.bind(this)
@@ -25,6 +26,7 @@ export class Frame extends Component {
     this.createGame = this.createGame.bind(this)
     this.setDealer = this.setDealer.bind(this)
     this.placeBid = this.placeBid.bind(this)
+    this.submitRound = this.submitRound.bind(this)
   }
   showSetup() {
     this.setState({ active: 'Setup' })
@@ -45,6 +47,10 @@ export class Frame extends Component {
       console.log(error)
     }
     event.target.name.value = ''
+    let numPlayers = this.state.players.length
+    let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+    this.setState({ maxRound: max })
+    console.log(this.state.maxRound)
   }
   async deletePlayer(id) {
     try {
@@ -53,6 +59,10 @@ export class Frame extends Component {
     } catch (error) {
       console.log(error)
     }
+    let numPlayers = this.state.players.length
+    let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+    this.setState({ maxRound: max })
+    console.log(this.state.maxRound)
   }
   createGame() {
     for (let round in emptyDummyGame) delete emptyDummyGame[round]
@@ -69,25 +79,56 @@ export class Frame extends Component {
         cards: numCards
       }
     }
-    this.state.game['1']['dealer'] = this.state.dealer
+    emptyDummyGame['1']['dealer'] = this.state.dealer.length ? this.state.dealer : this.state.players[0].name
+    this.setState({ game: emptyDummyGame })
     this.showGamePlay()
-    console.log('GAME:', this.state.game)
+    // console.log('GAME:', this.state.game)
   }
   setDealer(event, name) {
     event.preventDefault()
-    // event.persist()
     if (this.state.players.find(player => player.name === name)) {
-      console.log('player exists!')
+      console.log('dealer set!')
       this.setState({ dealer: name })
     } else {
-      console.log('player does not exist!')
+      console.log('player does not exist, dealer not set')
       //add error text below
+    }
+  }
+  setMaxRound(event, num) {
+    event.preventDefault()
+    if (num <= this.state.maxRound) {
+      this.setState({ maxRound: num })
     }
   }
   placeBid(event) {
     this.setState({
       tricksTaken: parseInt(this.state.tricksTaken) + parseInt(event.target.value)
     })
+  }
+  submitRound() {
+    if (!!this.state.game['1']) {
+      const bidsArr = Array.from(document.getElementsByClassName('player-and-bids'))
+      let round = this.state.game[this.state.currRound]
+      console.log(`ROUND ${round.round}`, round)
+      bidsArr.forEach((bid, idx) => {
+        let rNum = `p${idx + 1}`
+        round[rNum] = {
+          points: 0,
+          success: false
+        }
+        if (bid.childNodes[2].checked) {
+          round[rNum]['points'] = 10 + (Number(bid.childNodes[1].value) || 0)
+          round[rNum]['success'] = true
+        }
+        const player = this.state.players.find(player => player.name === bid.childNodes[0].innerText)
+        const playerPoints = player.points
+        const updatedPoints = round[rNum]['points'] + playerPoints
+        round[rNum]['total'] = updatedPoints
+        player.points = updatedPoints
+      })
+      this.setState({ currRound: this.state.currRound + 1 })
+    }
+    console.log(this.state.game)
   }
   async componentDidMount() {
     try {
@@ -96,7 +137,10 @@ export class Frame extends Component {
     } catch (error) {
       console.log(error)
     }
-    this.setState({ active: 'Setup' })
+    let numPlayers = this.state.players.length
+    let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+    this.setState({ maxRound: max, active: 'Setup' })
+    console.log('STATE:', this.state)
   }
   render() {
     const active = this.state.active
@@ -117,7 +161,7 @@ export class Frame extends Component {
               <h1>Setup</h1>
               <hr />
             </div>
-            <Setup players={this.state.players} game={this.state.game} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} setDealer={this.setDealer} />
+            <Setup players={this.state.players} game={this.state.game} maxRound={this.state.maxRound} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} setDealer={this.setDealer} />
           </div>
         ) : active === 'GamePlay' ? (
           <div>
@@ -125,7 +169,7 @@ export class Frame extends Component {
               <h1>Game Play</h1>
               <hr />
             </div>
-            <GamePlay players={this.state.players} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} />
+            <GamePlay players={this.state.players} game={this.state.game} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} submitRound={this.submitRound} />
           </div>
         ) : active === 'Scoring' ? (
           <div>
@@ -133,7 +177,7 @@ export class Frame extends Component {
               <h1>Scoring</h1>
               <hr />
             </div>
-            <Scoring players={this.state.players} game={this.state.game} />
+            <Scoring players={this.state.players} game={this.state.game} currRound={this.state.currRound} />
           </div>
         ) : null}
       </div>
