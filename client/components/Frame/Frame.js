@@ -4,6 +4,7 @@ import axios from 'axios'
 import { GamePlay } from '../GamePlay/GamePlay'
 import { Setup } from '../Setup/Setup'
 import { Scoring } from '../Scoring/Scoring'
+import { NoScore } from '../NoScore/NoScore'
 import { emptyDummyGame, dummyGame } from '../Scoring/dummyGame'
 
 export class Frame extends Component {
@@ -50,7 +51,6 @@ export class Frame extends Component {
     let numPlayers = this.state.players.length
     let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
     this.setState({ maxRound: max })
-    console.log(this.state.maxRound)
   }
   async deletePlayer(id) {
     try {
@@ -62,7 +62,6 @@ export class Frame extends Component {
     let numPlayers = this.state.players.length
     let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
     this.setState({ maxRound: max })
-    console.log(this.state.maxRound)
   }
   createGame() {
     for (let round in emptyDummyGame) delete emptyDummyGame[round]
@@ -106,29 +105,38 @@ export class Frame extends Component {
     })
   }
   submitRound() {
-    if (!!this.state.game['1']) {
+    let currRound = this.state.currRound
+    let game = this.state.game
+    if (!!game['1']) {
       const bidsArr = Array.from(document.getElementsByClassName('player-and-bids'))
-      let round = this.state.game[this.state.currRound]
-      console.log(`ROUND ${round.round}`, round)
-      bidsArr.forEach((bid, idx) => {
-        let rNum = `p${idx + 1}`
-        round[rNum] = {
-          points: 0,
-          success: false
+      let round = game[currRound]
+      if (round) {
+        bidsArr.forEach((bid, idx) => {
+          let rNum = `p${idx + 1}`
+          round[rNum] = {
+            points: 0,
+            success: false
+          }
+          if (bid.childNodes[2].checked) {
+            round[rNum]['points'] = 10 + (Number(bid.childNodes[1].value) || 0)
+            round[rNum]['success'] = true
+          }
+          const player = this.state.players.find(player => player.name === bid.childNodes[0].innerText)
+          const playerPoints = player.points
+          const updatedPoints = round[rNum]['points'] + playerPoints
+          round[rNum]['total'] = updatedPoints
+          player.points = updatedPoints
+        })
+        if (!game[currRound]) {
+          console.log('game over!')
+          // this.setState({ tricksTaken: 9 })
+          // to do: redirect to score page, have some announcement of who won, etc
+        } else {
+          this.setState({ currRound: currRound + 1 })
         }
-        if (bid.childNodes[2].checked) {
-          round[rNum]['points'] = 10 + (Number(bid.childNodes[1].value) || 0)
-          round[rNum]['success'] = true
-        }
-        const player = this.state.players.find(player => player.name === bid.childNodes[0].innerText)
-        const playerPoints = player.points
-        const updatedPoints = round[rNum]['points'] + playerPoints
-        round[rNum]['total'] = updatedPoints
-        player.points = updatedPoints
-      })
-      this.setState({ currRound: this.state.currRound + 1 })
+      }
+
     }
-    console.log(this.state.game)
   }
   async componentDidMount() {
     try {
@@ -140,10 +148,9 @@ export class Frame extends Component {
     let numPlayers = this.state.players.length
     let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
     this.setState({ maxRound: max, active: 'Setup' })
-    console.log('STATE:', this.state)
   }
   render() {
-    const active = this.state.active
+    const { active, game, players, maxRound, currRound } = this.state
     return (
       <div className="frame">
         <div className="frame-top">
@@ -161,7 +168,7 @@ export class Frame extends Component {
               <h1>Setup</h1>
               <hr />
             </div>
-            <Setup players={this.state.players} game={this.state.game} maxRound={this.state.maxRound} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} setDealer={this.setDealer} />
+            <Setup players={players} game={game} maxRound={maxRound} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} setDealer={this.setDealer} />
           </div>
         ) : active === 'GamePlay' ? (
           <div>
@@ -169,15 +176,23 @@ export class Frame extends Component {
               <h1>Game Play</h1>
               <hr />
             </div>
-            <GamePlay players={this.state.players} game={this.state.game} currRound={this.state.currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} submitRound={this.submitRound} />
+            <GamePlay players={players} game={game} currRound={currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} submitRound={this.submitRound} />
           </div>
-        ) : active === 'Scoring' ? (
+        ) : active === 'Scoring' && game['1'] ? (
           <div>
             <div className="page-title">
               <h1>Scoring</h1>
               <hr />
             </div>
-            <Scoring players={this.state.players} game={this.state.game} currRound={this.state.currRound} />
+            <Scoring players={players} game={game} currRound={currRound} />
+          </div>
+        ) : active === 'Scoring' && !game['1'] ? (
+          <div>
+            <div className="page-title">
+              <h1>Scoring</h1>
+              <hr />
+            </div>
+            <NoScore />
           </div>
         ) : null}
       </div>

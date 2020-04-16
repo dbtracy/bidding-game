@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-
 export class Scoring extends Component {
   constructor(props) {
     super(props)
@@ -15,6 +14,7 @@ export class Scoring extends Component {
     const scoreTable = document.querySelector('.score-table')
     let scoreTableRow = []
     let playerList = []
+
     playerList.push(
       <div className="score">Round</div >,
       <div className="score">Cards</div >
@@ -22,6 +22,7 @@ export class Scoring extends Component {
     for (let player of players) {
       playerList.push(<div className="score">{player.name}</div >)
     }
+
     scoreTableRow.push(<div className="score-table-row titles">{playerList}</div >)
     for (let i = 1; i < this.props.currRound; i++) {
       let scores = []
@@ -40,7 +41,7 @@ export class Scoring extends Component {
   render() {
     const players = this.props.players.sort((a, b) => a.id - b.id)
 
-    return (
+    return (this.props.game['1']['p1'] ? (
       <div className="scoring-body">
         <div className="score-table">{this.state.currRoundScores}
           {/* <div className="score-table-row">
@@ -54,8 +55,8 @@ export class Scoring extends Component {
               )
             })}
           </div>
-          <hr /> */}
-          {/* <div className="score-table-row">
+          <hr />
+          <div className="score-table-row">
             <p>1</p>
             <p>10</p>
             {players.map(player => {
@@ -71,8 +72,7 @@ export class Scoring extends Component {
             <div></div>
             <div>TOTALS:</div>
             {players.map(player => {
-              console.log(player)
-              return <div>{player.points}</div>
+              return <div key={player.id}>{player.points}</div>
             })}</div>
         </div>
 
@@ -85,6 +85,7 @@ export class Scoring extends Component {
           console.log(this.props.game)
         }}>Change score</button> */}
       </div>
+    ) : null
     )
   }
 }
