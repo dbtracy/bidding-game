@@ -203,7 +203,7 @@ export class Frame extends Component {
               placeBid={this.placeBid}
               submitRound={this.submitRound} />
           </div>
-        ) : active === 'Scoring' && game['1'] ? (
+        ) : active === 'Scoring' && game['1'] && game['1']['p1'] ? (
           <div>
             <div className="page-title">
               <h1>Scoring</h1>
@@ -211,7 +211,7 @@ export class Frame extends Component {
             </div>
             <Scoring players={players} game={game} currRound={currRound} />
           </div>
-        ) : active === 'Scoring' && !game['1'] ? (
+        ) : active === 'Scoring' ? (
           <div>
             <div className="page-title">
               <h1>Scoring</h1>
