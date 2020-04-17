@@ -7,3 +7,5 @@ To start:
 -npm i
 -npm run seed
 -npm run start-dev
+
+Site should be running at localhost:1103
