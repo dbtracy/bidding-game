@@ -17,7 +17,8 @@ export class Frame extends Component {
       currRound: 1,
       tricksTaken: 0,
       active: '',
-      dealer: ''
+      dealer: '',
+      squaredRule: false
     }
     this.showSetup = this.showSetup.bind(this)
     this.showGamePlay = this.showGamePlay.bind(this)
@@ -26,6 +27,7 @@ export class Frame extends Component {
     this.deletePlayer = this.deletePlayer.bind(this)
     this.createGame = this.createGame.bind(this)
     this.setDealer = this.setDealer.bind(this)
+    this.setSquaredRule = this.setSquaredRule.bind(this)
     this.placeBid = this.placeBid.bind(this)
     this.submitRound = this.submitRound.bind(this)
   }
@@ -67,11 +69,11 @@ export class Frame extends Component {
     for (let round in emptyDummyGame) delete emptyDummyGame[round]
     let numPlayers = this.state.players.length
     let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
-    let numRounds = max * 2 + max - 2
+    let numRounds = max * 2 + numPlayers - 2
     for (let i = 1; i <= numRounds; i++) {
       let numCards
       if (i < max) numCards = max + 1 - i
-      else if (i > max * 2 - 1) numCards = i - (max * 2 - 2)
+      else if (i > max - 1 + numPlayers) numCards = i - (max + numPlayers - 2)
       else numCards = 1
       emptyDummyGame[`${i}`] = {
         round: i,
@@ -99,6 +101,11 @@ export class Frame extends Component {
       this.setState({ maxRound: num })
     }
   }
+  setSquaredRule(event) {
+    this.setState({
+      squaredRule: event.target.checked
+    })
+  }
   placeBid(event) {
     this.setState({
       tricksTaken: parseInt(this.state.tricksTaken) + parseInt(event.target.value)
@@ -118,7 +125,7 @@ export class Frame extends Component {
             success: false
           }
           if (bid.childNodes[2].checked) {
-            round[rNum]['points'] = 10 + (Number(bid.childNodes[1].value) || 0)
+            round[rNum]['points'] = this.state.squaredRule ? 10 + (Number(bid.childNodes[1].value) ** 2 || 0) : 10 + (Number(bid.childNodes[1].value) || 0)
             round[rNum]['success'] = true
           }
           const player = this.state.players.find(player => player.name === bid.childNodes[0].innerText)
@@ -139,6 +146,7 @@ export class Frame extends Component {
     }
   }
   async componentDidMount() {
+    // console.log('square:', this.state.squaredRule)
     try {
       const { data } = await axios.get('/api/players')
       this.setState({ players: data })
@@ -150,7 +158,7 @@ export class Frame extends Component {
     this.setState({ maxRound: max, active: 'Setup' })
   }
   render() {
-    const { active, game, players, maxRound, currRound } = this.state
+    const { active, game, players, maxRound, currRound, squaredRule } = this.state
     return (
       <div className="frame">
         <div className="frame-top">
@@ -168,7 +176,17 @@ export class Frame extends Component {
               <h1>Setup</h1>
               <hr />
             </div>
-            <Setup players={players} game={game} maxRound={maxRound} addPlayer={this.addPlayer} deletePlayer={this.deletePlayer} createGame={this.createGame} setDealer={this.setDealer} />
+            <Setup
+              players={players}
+              game={game}
+              maxRound={maxRound}
+              addPlayer={this.addPlayer}
+              deletePlayer={this.deletePlayer}
+              createGame={this.createGame}
+              setDealer={this.setDealer}
+              squaredRule={squaredRule}
+              setSquaredRule={this.setSquaredRule}
+            />
           </div>
         ) : active === 'GamePlay' ? (
           <div>
@@ -176,7 +194,13 @@ export class Frame extends Component {
               <h1>Game Play</h1>
               <hr />
             </div>
-            <GamePlay players={players} game={game} currRound={currRound} tricksTaken={this.state.tricksTaken} placeBid={this.placeBid} submitRound={this.submitRound} />
+            <GamePlay
+              players={players}
+              game={game}
+              currRound={currRound}
+              tricksTaken={this.state.tricksTaken}
+              placeBid={this.placeBid}
+              submitRound={this.submitRound} />
           </div>
         ) : active === 'Scoring' && game['1'] ? (
           <div>

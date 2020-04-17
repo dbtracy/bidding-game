@@ -13,8 +13,8 @@ export class Setup extends Component {
     this.setState({ dealer: event.target.value })
   }
   render() {
-    let players = this.props.players.sort((a, b) => a.id - b.id)
-    let dealer = this.state.dealer
+    const players = this.props.players.sort((a, b) => a.id - b.id)
+    const dealer = this.state.dealer
 
     return (
       <div className="setup-frame">
@@ -46,7 +46,7 @@ export class Setup extends Component {
                 <form className="set-dealer-form" onSubmit={() => this.props.setDealer(event, dealer)}>
                   <div className="set-dealer-input">
                     <label htmlFor="set-dealer-input">Set first dealer:</label>
-                    <input type="text" name="name" size="6" value={this.state.dealer} onChange={this.changeDealer} />
+                    <input type="text" name="name" size="6" placeholder={dealer} onChange={this.changeDealer} />
                   </div>
                 </form>
                 <hr />
@@ -57,9 +57,9 @@ export class Setup extends Component {
                   </div>
                 </div>
                 <hr />
-                <div className="cube-rule">
-                  <p>Cube rule?</p>
-                  <input type="checkbox" name="cube-rule" />
+                <div className="squared-rule">
+                  <p>Squared rule?</p>
+                  <input type="checkbox" name="squared-rule" checked={this.props.squaredRule} onChange={() => this.props.setSquaredRule(event)} />
                 </div>
               </div>
             </div>

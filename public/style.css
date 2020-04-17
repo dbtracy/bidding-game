@@ -155,7 +155,7 @@ nav {
   height: 50px;
 }
 
-.cube-rule {
+.squared-rule {
   display: flex;
   align-items: center;
   justify-content: space-between;
