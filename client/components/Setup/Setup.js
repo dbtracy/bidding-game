@@ -5,17 +5,21 @@ export class Setup extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dealer: ''
+      dealer: '',
+      maxRound: 0
     }
     this.changeDealer = this.changeDealer.bind(this)
+    this.changeMaxRound = this.changeMaxRound.bind(this)
   }
   changeDealer(event) {
     this.setState({ dealer: event.target.value })
   }
+  changeMaxRound(event) {
+    this.setState({ maxRound: event.target.value })
+  }
   render() {
     const players = this.props.players.sort((a, b) => a.id - b.id)
-    const dealer = this.state.dealer
-
+    const { dealer, maxRound } = this.state
     return (
       <div className="setup-frame">
         <div className="setup-body">
@@ -51,10 +55,10 @@ export class Setup extends Component {
                 </form>
                 <hr />
                 <div className="max-round">
-                  <div className="max-round-input">
+                  <form className="max-round-input" onSubmit={(event) => this.props.setMaxRound(event, maxRound)}>
                     <p>Set max round:</p>
-                    <input type="text" className="max-round-input" name="name" size="3" placeholder={this.props.maxRound} />
-                  </div>
+                    <input type="text" className="max-round-input" name="name" size="3" onChange={this.changeMaxRound} placeholder={this.props.maxRound} />
+                  </form>
                 </div>
                 <hr />
                 <div className="squared-rule">

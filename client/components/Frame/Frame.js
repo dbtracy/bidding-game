@@ -13,7 +13,7 @@ export class Frame extends Component {
     this.state = {
       players: [],
       game: {},
-      maxRound: 0,
+      maxRound: 10,
       currRound: 1,
       tricksTaken: 0,
       active: '',
@@ -27,6 +27,7 @@ export class Frame extends Component {
     this.deletePlayer = this.deletePlayer.bind(this)
     this.createGame = this.createGame.bind(this)
     this.setDealer = this.setDealer.bind(this)
+    this.setMaxRound = this.setMaxRound.bind(this)
     this.setSquaredRule = this.setSquaredRule.bind(this)
     this.placeBid = this.placeBid.bind(this)
     this.submitRound = this.submitRound.bind(this)
@@ -68,7 +69,7 @@ export class Frame extends Component {
   createGame() {
     for (let round in emptyDummyGame) delete emptyDummyGame[round]
     let numPlayers = this.state.players.length
-    let max = numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers
+    let max = Number(this.state.maxRound)/*numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers*/
     let numRounds = max * 2 + numPlayers - 2
     for (let i = 1; i <= numRounds; i++) {
       let numCards
@@ -83,7 +84,6 @@ export class Frame extends Component {
     emptyDummyGame['1']['dealer'] = this.state.dealer.length ? this.state.dealer : this.state.players[0].name
     this.setState({ game: emptyDummyGame })
     this.showGamePlay()
-    // console.log('GAME:', this.state.game)
   }
   setDealer(event, name) {
     event.preventDefault()
@@ -99,6 +99,7 @@ export class Frame extends Component {
     event.preventDefault()
     if (num <= this.state.maxRound) {
       this.setState({ maxRound: num })
+    } else {
     }
   }
   setSquaredRule(event) {
@@ -146,7 +147,6 @@ export class Frame extends Component {
     }
   }
   async componentDidMount() {
-    // console.log('square:', this.state.squaredRule)
     try {
       const { data } = await axios.get('/api/players')
       this.setState({ players: data })
@@ -184,6 +184,7 @@ export class Frame extends Component {
               deletePlayer={this.deletePlayer}
               createGame={this.createGame}
               setDealer={this.setDealer}
+              setMaxRound={this.setMaxRound}
               squaredRule={squaredRule}
               setSquaredRule={this.setSquaredRule}
             />
