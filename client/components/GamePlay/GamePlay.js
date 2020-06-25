@@ -70,7 +70,7 @@ export class GamePlay extends Component {
                 // let dropdown = React.createElement('select')
                 // dropdown.name = 'bids'
                 // dropdown.className = 'bids'
-                // dropdown.onChange = this.placeBid
+                // dropdown.onChange = this.setTricksAvailable
                 // let sortedList = []
                 // console.log('CURROUND:', currRound)
                 // for (let i = 0; i <= currRound; i++) {
@@ -79,7 +79,7 @@ export class GamePlay extends Component {
                 return (
                   <div key={player.id} className="player-and-bids">
                     <p>{player.name}</p>
-                    <select name="bids" className="bids" onChange={(event) => this.props.placeBid(event)}>
+                    <select name="bids" className="bids" onChange={(event) => this.props.setTricksAvailable(event)}>
                       <option value="">Place bid</option>
                       <option value="0">0</option>
                       <option value="1">1</option>

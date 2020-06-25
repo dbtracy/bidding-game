@@ -7,6 +7,7 @@
 
 body {
   background-image: url('wood-pattern-full.png');
+  background-color: rgb(165, 162, 128);
 }
 
 nav {
@@ -31,7 +32,7 @@ nav {
   box-shadow: inset hsla(0,0%,15%,  1) 0  0px 0px 4px, /* border */
     inset hsla(0,0%,15%, .8) 0 -1px 5px 4px, /* soft SD */
     inset hsla(0,0%,0%, .25) 0 -1px 0px 7px, /* bottom SD */
-    /* inset hsla(0,0%,100%,.7) 0  2px 1px 7px, top HL */
+    inset hsla(0,0%,100%,.7) 0  2px 1px 7px, /* top HL */
 
     hsla(0,0%, 0%,.15) 0 -5px 6px 4px, /* outer SD */
     hsla(0,0%,100%,.5) 0  5px 6px 4px; /* outer HL */
@@ -247,7 +248,7 @@ hr {
 
 .titles {
   background-color: rgb(245, 245, 245, 0.6);
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px 10px 0 0;
   box-shadow: 0 1px 3px rgb(62, 62, 62);
   margin-bottom: 7px;
 }
@@ -257,11 +258,13 @@ hr {
   justify-content: left;
   align-items: center;
   margin: 0 15px 0 15px;
+  width: 10px;
 }
 
 .score-totals {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 0 5% 0 5%;
 }
 
 .no-game {

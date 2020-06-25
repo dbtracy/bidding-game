@@ -16,11 +16,11 @@ export class Scoring extends Component {
     let playerList = []
 
     playerList.push(
-      <div className="score">Round</div >,
-      <div className="score">Cards</div >
+      <div style={{ width: '10px' }} className="score">Round</div >,
+      <div style={{ width: '10px' }} className="score">Cards</div >
     )
     for (let player of players) {
-      playerList.push(<div className="score">{player.name}</div >)
+      playerList.push(<div style={{ color: 'blue', width: '10px' }} className="score">{player.name}</div >)
     }
 
     scoreTableRow.push(<div className="score-table-row titles">{playerList}</div >)
@@ -32,7 +32,7 @@ export class Scoring extends Component {
 
       )
       for (let j = 1; j <= players.length; j++) {
-        scores.push(<div className="score" key={`p${j}`}>{this.props.game[i][`p${j}`]['points']}</div>)
+        scores.push(<div style={{ color: 'blue', width: '10px' }} className="score" key={`p${j}`}>{this.props.game[i][`p${j}`]['points']}</div>)
       }
       scoreTableRow.push(<div className="score-table-row">{scores}</div>)
       this.setState({ currRoundScores: scoreTableRow })
@@ -69,10 +69,10 @@ export class Scoring extends Component {
           </div> */}
           <hr />
           <div className="score-totals">
-            <div></div>
-            <div>TOTALS:</div>
+            <div style={{ width: '10px' }} className='score' ></div>
+            <div style={{ width: '10px' }} className='score' >TOTALS:</div>
             {players.map(player => {
-              return <div key={player.id}>{player.points}</div>
+              return <div style={{ color: 'blue', width: '10px' }} className='score' key={player.id}>{player.points}</div>
             })}</div>
         </div>
 

@@ -29,7 +29,7 @@ export class Frame extends Component {
     this.setDealer = this.setDealer.bind(this)
     this.setMaxRound = this.setMaxRound.bind(this)
     this.setSquaredRule = this.setSquaredRule.bind(this)
-    this.placeBid = this.placeBid.bind(this)
+    this.setTricksAvailable = this.setTricksAvailable.bind(this)
     this.submitRound = this.submitRound.bind(this)
   }
   showSetup() {
@@ -103,14 +103,13 @@ export class Frame extends Component {
     }
   }
   setSquaredRule(event) {
-    this.setState({
-      squaredRule: event.target.checked
-    })
+    this.setState({ squaredRule: event.target.checked })
   }
-  placeBid(event) {
-    this.setState({
-      tricksTaken: parseInt(this.state.tricksTaken) + parseInt(event.target.value)
-    })
+  setTricksAvailable(event) {
+    const bids = Array.from(document.getElementsByClassName('bids'))
+    let sum = 0
+    bids.forEach(bid => sum += Number(bid.value))
+    this.setState({ tricksTaken: sum })
   }
   submitRound() {
     let currRound = this.state.currRound
@@ -140,7 +139,12 @@ export class Frame extends Component {
           // this.setState({ tricksTaken: 9 })
           // to do: redirect to score page, have some announcement of who won, etc
         } else {
-          this.setState({ currRound: currRound + 1 })
+          const bids = Array.from(document.getElementsByClassName('bids'))
+          bids.forEach(bid => bid.selectedIndex = 0)
+          this.setState({
+            currRound: currRound + 1,
+            tricksTaken: 0
+          })
         }
       }
 
@@ -200,7 +204,7 @@ export class Frame extends Component {
               game={game}
               currRound={currRound}
               tricksTaken={this.state.tricksTaken}
-              placeBid={this.placeBid}
+              setTricksAvailable={this.setTricksAvailable}
               submitRound={this.submitRound} />
           </div>
         ) : active === 'Scoring' && game['1'] && game['1']['p1'] ? (
