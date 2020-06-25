@@ -69,7 +69,8 @@ export class Frame extends Component {
   createGame() {
     for (let round in emptyDummyGame) delete emptyDummyGame[round]
     let numPlayers = this.state.players.length
-    let max = Number(this.state.maxRound)/*numPlayers <= 5 ? 10 : (52 - (52 % numPlayers)) / numPlayers*/
+    if (numPlayers < 2) return
+    let max = Number(this.state.maxRound)
     let numRounds = max * 2 + numPlayers - 2
     for (let i = 1; i <= numRounds; i++) {
       let numCards
@@ -97,9 +98,12 @@ export class Frame extends Component {
   }
   setMaxRound(event, num) {
     event.preventDefault()
-    if (num <= this.state.maxRound) {
+    let error = document.getElementsByClassName('max-round-error')
+    if (num <= parseInt(51 / this.state.players.length)) {
+      error[0].style.display = 'none'
       this.setState({ maxRound: num })
     } else {
+      error[0].style.display = 'block'
     }
   }
   setSquaredRule(event) {
@@ -136,8 +140,6 @@ export class Frame extends Component {
         })
         if (!game[currRound]) {
           console.log('game over!')
-          // this.setState({ tricksTaken: 9 })
-          // to do: redirect to score page, have some announcement of who won, etc
         } else {
           const bids = Array.from(document.getElementsByClassName('bids'))
           bids.forEach(bid => bid.selectedIndex = 0)

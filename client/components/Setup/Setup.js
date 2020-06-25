@@ -59,6 +59,7 @@ export class Setup extends Component {
                     <p>Set max round:</p>
                     <input type="text" className="max-round-input" name="name" size="3" onChange={this.changeMaxRound} placeholder={this.props.maxRound} />
                   </form>
+                  <p className="max-round-error">Max round must be {parseInt(51 / players.length)} or less for {players.length} players</p>
                 </div>
                 <hr />
                 <div className="squared-rule">

@@ -173,6 +173,13 @@ nav {
   justify-content: space-between;
 }
 
+.max-round-error {
+  display: none;
+  margin-top: 0px;
+  color: red;
+  font-size: x-small;
+}
+
 .start-game {
   display: flex;
   justify-content: center;
